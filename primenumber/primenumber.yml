@@ -1,0 +1,22 @@
+name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger: main
+
+pool: 'Hosted Ubuntu 1604'
+
+resources:
+  repositories:
+    - repository: https://github.com/yesyoucan04/Mabimimo.git
+      type: github
+      name: Mabimimo
+      
+steps:
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '$(Parameters.RestoreBuildProjects)'
+    arguments: '--configuration $(BuildConfiguration)'
+  parameters:
+    buildConfiguration: 'Build'
+    hasUnitTests: 'false'
+    appName: 'Primenumber'
